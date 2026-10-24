@@ -6,6 +6,10 @@ This repository provides the PyTorch implementation for learning object-centric 
 
 Training consists of two stages: learning to represent objects and reconstruct images, then learning their dynamics. The dynamics model combines object states, spatial context, and motion history to predict future states, which can be decoded into video frames or evaluated as trajectories.
 
+![Overall architecture: object-centric perception, dynamics prediction, and image decoding](assets/method-overview.svg)
+
+**Method overview.** The perceptual module extracts object representations without object-level annotations. The dynamics module predicts future object states using spatial context and motion history, and the decoder reconstructs future frames.
+
 ## 📑 Contents
 
 - [Installation](#installation)
