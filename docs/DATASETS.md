@@ -1,6 +1,6 @@
 # Dataset setup
 
-Raw datasets are not included in this repository. Obtain them from the
+Apart from four illustrative README preview frames, raw datasets are not included in this repository. Obtain them from the
 official sources below and comply with their licenses and terms.
 
 `tools/prepare_dataset.py` validates paths and creates local links or a small
@@ -105,7 +105,9 @@ python tools/prepare_dataset.py \
 
 ## Redistribution policy
 
-Do not commit raw images, videos, arrays, or archives to this repository.
+The four README preview images are illustrative samples: Balls episode 15343 and Blocktower episode 6053 (first decoded frame), SimB test episode 00000 (first image), and OBJ3D test episode 0 (`test_1.png`). They come from the dataset providers cited above and are not model predictions.
+
+Do not commit additional raw images, videos, arrays, or archives to this repository.
 Do not upload mirrors unless the corresponding dataset license explicitly
 permits redistribution. Citations in a paper or README do not by themselves
 grant redistribution rights.

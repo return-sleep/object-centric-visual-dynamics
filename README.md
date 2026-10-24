@@ -37,7 +37,16 @@ The supplied environment specifies Python 3.7, PyTorch 1.11, torchvision 0.12, a
 
 ## 📦 Dataset preparation
 
-Download and organize the datasets following [the dataset preparation guide](docs/DATASETS.md). The following configurations are included:
+Example frames from the four datasets:
+
+| Balls | Blocktower | SimB | OBJ3D |
+|:---:|:---:|:---:|:---:|
+| <img src="assets/datasets/balls.png" width="160" alt="Balls: four colored balls in a bounded arena"> | <img src="assets/datasets/blocktower.png" width="160" alt="Blocktower: a stack of colored blocks"> | <img src="assets/datasets/simb.png" width="160" alt="SimB: colored objects on a black background"> | <img src="assets/datasets/obj3d.png" width="160" alt="OBJ3D: objects with different shapes and colors"> |
+| Ball interactions | Block dynamics | Object trajectories | 3D object scenes |
+
+These are dataset frames, not model predictions. Dataset sources and preparation instructions are listed in the [dataset guide](docs/DATASETS.md).
+
+The following configurations are included:
 
 | Dataset | Task | Conditioning frames | Prediction frames |
 |---|---|---:|---:|
