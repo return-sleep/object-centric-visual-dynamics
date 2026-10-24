@@ -2,9 +2,9 @@
 
 ## 💡 Introduction
 
-PyTorch implementation of **Learning Visual Dynamics via Unsupervised Object-centric Prediction**. This framework learns object-centric representations from videos and predicts visual dynamics through contextual and relational modeling.
+This repository provides the PyTorch implementation for learning object-centric representations and predicting visual dynamics from videos.
 
-The model first learns object states and image reconstruction. A dynamics module combines object states, spatial context, and motion history to predict future states, which are decoded into video frames or evaluated as trajectories.
+Training consists of two stages: learning to represent objects and reconstruct images, then learning their dynamics. The dynamics model combines object states, spatial context, and motion history to predict future states, which can be decoded into video frames or evaluated as trajectories.
 
 ## 📑 Contents
 
@@ -13,8 +13,7 @@ The model first learns object states and image reconstruction. A dynamics module
 - [Training](#training)
 - [Evaluation and checkpoints](#evaluation)
 - [Repository layout](#layout)
-- [Acknowledgements](#acknowledgements)
-- [Citation and license](#citation)
+- [License](#license)
 
 <a id="installation"></a>
 
@@ -34,7 +33,7 @@ The supplied environment specifies Python 3.7, PyTorch 1.11, torchvision 0.12, a
 
 ## 📦 Dataset preparation
 
-Obtain datasets from their original providers and follow [the preparation instructions](docs/DATASETS.md). The configuration files currently cover:
+Download and organize the datasets following [the dataset preparation guide](docs/DATASETS.md). The following configurations are included:
 
 | Dataset | Task | Conditioning frames | Prediction frames |
 |---|---|---:|---:|
@@ -43,9 +42,7 @@ Obtain datasets from their original providers and follow [the preparation instru
 | SimB | Trajectory prediction | 4 | 20 |
 | OBJ3D | Video prediction | 6 | 14 for training; 44 for evaluation |
 
-Command-line identifiers are `ballsCF`, `blocktowerCF`, `simb`, and `obj3d`. 
-
-Register the local dataset before running training or evaluation:
+Use `ballsCF`, `blocktowerCF`, `simb`, or `obj3d` as the dataset name in commands. For example, register the Balls dataset by replacing the path below with your local data directory:
 
 ```bash
 python tools/prepare_dataset.py --dataset ballsCF --source /path/to/CoPhy_112
@@ -55,17 +52,13 @@ python tools/prepare_dataset.py --dataset ballsCF --source /path/to/CoPhy_112
 
 ## 🚀 Training
 
-Preview the two-stage workflow:
-
-```bash
-python tools/run.py --dataset ballsCF --mode reproduce --dry-run
-```
-
-Train perception and dynamics, then evaluate the selected model:
+To train the perception and dynamics models on Balls and evaluate the resulting checkpoint, run:
 
 ```bash
 python tools/run.py --dataset ballsCF --mode reproduce --gpu 0
 ```
+
+To inspect the commands before starting a run, add `--dry-run`. This prints the commands without executing them.
 
 Dataset-specific training arguments are stored in `configs/`. The default seed is 1024; training outputs are written under `runs/<dataset>/`.
 
@@ -73,17 +66,15 @@ Dataset-specific training arguments are stored in `configs/`. The default seed i
 
 ## 🧪 Evaluation and checkpoints
 
-Evaluation requires matching perception and dynamics checkpoints. Checkpoint downloads are being prepared for GitHub Releases; see [checkpoint placement](checkpoints/README.md) for the expected directory structure.
+To evaluate a pretrained model, place its perception and dynamics checkpoints in the directories described in the [checkpoint guide](checkpoints/README.md). Download links will be added when the weights are uploaded to GitHub Releases.
 
-Balls and Blocktower have each been evaluated on all 188 supplied test videos. See [evaluation results and validation scope](docs/RESULTS.md) for the measured metrics and current verification status.
-
-After placing the checkpoints, run:
+For example, evaluate Balls with:
 
 ```bash
 python tools/run.py --dataset ballsCF --mode eval --gpu 0
 ```
 
-For the `main.py` evaluation path, results are saved as `metric_table.csv` and `log.json` beside the dynamics checkpoint. A dry run only prints commands; it does not validate model outputs or reproduce numerical results.
+For Balls and Blocktower, evaluation saves `metric_table.csv` and `log.json` beside the dynamics checkpoint. Both datasets have been evaluated on all 188 supplied test videos; measured results and verification details are available in [evaluation results](docs/RESULTS.md).
 
 OBJ3D uses a separate fixed-ensemble inference command; see [OBJ3D inference and evaluation](docs/OBJ3D.md).
 
@@ -100,16 +91,8 @@ checkpoints/             Checkpoint placement instructions
 docs/                    Dataset and experiment documentation
 ```
 
-<a id="acknowledgements"></a>
+<a id="license"></a>
 
-## 🤝 Acknowledgements
+## 📄 License
 
-This work builds on Filtered-CoPhy and Interaction Networks and uses benchmarks introduced by CoPhy, G-SWM, and RPIN. Please retain the corresponding third-party acknowledgements and license notices.
-
-<a id="citation"></a>
-
-## 📄 Citation and license
-
-If you use this code in your research, please cite the associated paper using [CITATION.cff](CITATION.cff).
-
-The original code is released under the [MIT License](LICENSE). See [NOTICE](NOTICE) for third-party acknowledgements and terms.
+The original code is released under the [MIT License](LICENSE). Third-party notices are provided in [NOTICE](NOTICE).
