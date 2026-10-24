@@ -1,0 +1,38 @@
+{
+  "dataset": "obj3d",
+  "data_kind": "obj3d",
+  "perception": {
+    "script": "train_derendering.py",
+    "args": [
+      "--dataset", "obj3d", "--epoch", "300", "--batchsize", "32",
+      "--lr", "1e-4", "--resolution", "128", "--n_keypoints", "6",
+      "--n_coefficients", "8", "--num_filter", "64", "--std", "0.1",
+      "--perceptual_loss", "--perceptual_net", "vgg",
+      "--perceptual_weight", "0.5", "--early_boost", "0.3",
+      "--gap_range", "1,40", "--run_tag", "public"
+    ],
+    "checkpoint": "best_val_obj3d_4kpts.nn"
+  },
+  "dynamics": {
+    "script": "main.py",
+    "args": [
+      "--dataset", "obj3d", "--epoch", "300", "--batchsize", "12",
+      "--lr", "5e-5", "--given_frames", "6", "--horizon", "14",
+      "--random_window", "--windows_per_video", "4",
+      "--num_velocity", "4", "--n_keypoints", "6", "--n_coefficients", "8",
+      "--num_gn", "2", "--Inference_model", "predictor_module_with_appr",
+      "--consider_appr", "--perception_auto_config",
+      "--xy_loss_weight", "4", "--velocity_loss_weight", "1",
+      "--appearance_loss_weight", "1", "--scale_loss_weight", "1",
+      "--rgb_loss_type", "mse", "--rgb_loss_weight", "25",
+      "--dyn_perceptual_frames", "14", "--render_frame_sampling", "uniform",
+      "--val_pixel_every", "5", "--val_pixel_videos", "200"
+    ],
+    "checkpoint": "best_val_psnr_model.pt"
+  },
+  "evaluation": {
+    "given_frames": 6,
+    "horizon": 44,
+    "note": "Training uses random 20-frame windows (6+14); evaluation rolls out 44 future frames."
+  }
+}

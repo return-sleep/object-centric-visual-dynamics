@@ -1,0 +1,10 @@
+{
+  "CoDy": {
+    "ballsCF": "/absolute/path/to/CoPhy_112/ballsCF/4",
+    "blocktowerCF": "/absolute/path/to/CoPhy_112/blocktowerCF/4"
+  },
+  "Cophy": {
+    "ballsCF": "/absolute/path/to/CoPhy_112/ballsCF/4",
+    "blocktowerCF": "/absolute/path/to/CoPhy_112/blocktowerCF/4"
+  }
+}

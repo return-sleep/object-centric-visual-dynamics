@@ -1,0 +1,24 @@
+{
+  "dataset": "simb",
+  "data_kind": "simb",
+  "perception": {
+    "script": "train_derendering.py",
+    "args": [
+      "--dataset", "simb", "--epoch", "300", "--batchsize", "32",
+      "--lr", "1e-4", "--n_keypoints", "3", "--n_coefficients", "4",
+      "--resolution", "64"
+    ],
+    "checkpoint": "best_val_simb_4kpts.nn"
+  },
+  "dynamics": {
+    "script": "train_simb_dynamics.py",
+    "args": [
+      "--dataset", "simb", "--epoch", "300", "--batchsize", "128",
+      "--lr", "5e-4", "--given_frames", "4", "--horizon", "20",
+      "--num_velocity", "3", "--n_keypoints", "3", "--n_coefficients", "4",
+      "--num_gn", "2", "--Inference_model", "predictor_module_with_appr",
+      "--consider_appr"
+    ],
+    "checkpoint": "best_val_model.pt"
+  }
+}

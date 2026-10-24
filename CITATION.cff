@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "Learning Visual Dynamics via Unsupervised Object-centric Prediction"
+message: "If you use this software, please cite the associated paper."
+type: software
+authors:
+  - family-names: Xu
+    given-names: Huilin
+  - family-names: Xu
+    given-names: Feng
+year: 2026
+license: MIT
+repository-code: "https://github.com/return-sleep/object-centric-visual-dynamics"

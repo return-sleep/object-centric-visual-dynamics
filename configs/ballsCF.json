@@ -1,0 +1,24 @@
+{
+  "dataset": "ballsCF",
+  "data_kind": "cophy",
+  "perception": {
+    "script": "train_derendering.py",
+    "args": [
+      "--dataset", "ballsCF", "--epoch", "300", "--batchsize", "32",
+      "--lr", "1e-4", "--n_keypoints", "4", "--n_coefficients", "4",
+      "--resolution", "112"
+    ],
+    "checkpoint": "best_val_ballsCF_4kpts.nn"
+  },
+  "dynamics": {
+    "script": "main.py",
+    "args": [
+      "--dataset", "ballsCF", "--epoch", "300", "--batchsize", "16",
+      "--lr", "5e-4", "--given_frames", "3", "--horizon", "25",
+      "--num_velocity", "2", "--n_keypoints", "4", "--n_coefficients", "4",
+      "--num_gn", "2", "--Inference_model", "predictor_module_with_appr",
+      "--consider_appr"
+    ],
+    "checkpoint": "best_val_model.pt"
+  }
+}

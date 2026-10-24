@@ -1,0 +1,37 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+.vscode/
+.idea/
+
+# User-provided raw data. Keep only the small protocol assets committed below.
+data/*
+!data/.gitkeep
+Datasets/dataset_dir.json
+Datasets/simb
+
+# Model weights and experiment products are distributed separately.
+checkpoints/*
+!checkpoints/README.md
+!checkpoints/MANIFEST.sha256
+runs/
+output/
+new_output/
+perception_cache/
+*.pt
+*.pth
+*.nn
+*.npy
+*.npz
+*.hkl
+*.mp4
+events.out.tfevents.*
+
+# Local logs and generated figures.
+*.log
+nohup.out
+vis/

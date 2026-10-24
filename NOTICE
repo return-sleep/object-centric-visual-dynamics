@@ -1,0 +1,19 @@
+NeuroCom public research code
+Copyright (c) 2026 Huilin Xu and Feng Xu
+
+The repository's original code is released under the MIT License in LICENSE.
+
+The experiments rely on third-party datasets and research implementations
+which are not redistributed here:
+
+- Filtered-CoPhy / CoPhy (Janny et al.; Baradel et al.)
+- G-SWM OBJ3D (Lin et al.)
+- Simb / RPIN benchmark data (Qi et al.)
+
+Users must obtain those datasets from their official sources and comply with
+their respective licenses and terms. Dataset citations and links are listed in
+docs/DATASETS.md.
+
+Some architectural ideas and loader conventions originate from the cited
+research projects. This notice does not relicense third-party datasets,
+pretrained models, or code.
