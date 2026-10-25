@@ -15,7 +15,7 @@ jobs:
           SOURCE_SHA: ${{ github.sha }}
         run: |
           python3 - <<'PY'
-          import os, json, hashlib, urllib.request, urllib.error
+          import os, json, hashlib, urllib.request, urllib.error, io, zipfile
           repo = 'return-sleep/object-centric-visual-dynamics'
           tag = 'v1.0.0-balls'
           name = 'ocvd-balls-checkpoints-v1.zip'
@@ -51,4 +51,12 @@ jobs:
           print(release['html_url'])
           print(asset['browser_download_url'])
           print('Verified archive SHA-256:', digest)
+          public_bytes = urllib.request.urlopen(asset['browser_download_url'], timeout=180).read()
+          assert hashlib.sha256(public_bytes).hexdigest() == digest
+          with zipfile.ZipFile(io.BytesIO(public_bytes)) as package:
+              for line in package.read('SHA256SUMS').decode().splitlines():
+                  expected, path = line.split('  ', 1)
+                  assert hashlib.sha256(package.read(path)).hexdigest() == expected
+              assert 'README.md' not in package.namelist()
+          print('::notice::Anonymous public download verified: archive SHA256 ' + digest + '; both model weight hashes match the complete-test evaluation checkpoints.')
           PY
