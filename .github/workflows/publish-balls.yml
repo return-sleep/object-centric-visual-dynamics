@@ -1,4 +1,4 @@
-name: Publish verified Balls checkpoints
+name: Publish verified Blocktower checkpoints
 on:
   push:
     branches: [codex/balls-release]
@@ -17,9 +17,9 @@ jobs:
           python3 - <<'PY'
           import os, json, hashlib, urllib.request, urllib.error, io, zipfile
           repo = 'return-sleep/object-centric-visual-dynamics'
-          tag = 'v1.0.0-balls'
-          name = 'ocvd-balls-checkpoints-v1.zip'
-          digest = '7634999fb4804bf8d3f4e1e0c0deb11d627d09dd805ccce3cf8b205d88081b9e'
+          tag = 'v1.0.0-blocktower'
+          name = 'ocvd-blocktower-checkpoints-v1.zip'
+          digest = '07e549f32741cd0744268145fe51a64c2eb59b4665a0c78a52544db8bbe4ffbe'
           source = 'https://raw.githubusercontent.com/' + repo + '/' + os.environ['SOURCE_SHA'] + '/release-assets/' + name
           archive = urllib.request.urlopen(source, timeout=120).read()
           assert hashlib.sha256(archive).hexdigest() == digest
@@ -37,8 +37,8 @@ jobs:
           except urllib.error.HTTPError as error:
               if error.code != 404:
                   raise
-              body = 'Matching perception and dynamics checkpoints for the short-horizon Balls experiment.\n\n- Complete test split: 188 videos, 3 conditioning frames and 25 predicted frames.\n- Public evaluation: L-PSNR 34.115024 dB, rounding to 34.12.\n- Extract the ZIP into the repository root, register the dataset following docs/DATASETS.md, then run `python tools/run.py --dataset ballsCF --mode eval`.\n- Includes file checksums, evaluation instructions, and reference metrics.\n\nArchive SHA-256: `' + digest + '`.\n\nSee docs/RESULTS.md and docs/validation.json for evaluation details.'
-              release = api(base + '/releases', json.dumps({'tag_name': tag, 'target_commitish': 'd98ce1df2abefb48887d4fc4db47d4835e275250', 'name': 'Balls pretrained checkpoints - L-PSNR 34.12', 'body': body, 'draft': False, 'prerelease': False}).encode())
+              body = 'Matching perception and dynamics weights for Blocktower. Extract the archive into the repository root, verify BLOCKTOWER_SHA256SUMS, register the dataset following docs/DATASETS.md, and run `python tools/run.py --dataset blocktowerCF --mode eval`. The archive includes checksums, instructions, and a reference result file. See docs/RESULTS.md and docs/validation.json for evaluation details.\n\nArchive SHA-256: `' + digest + '`.'
+              release = api(base + '/releases', json.dumps({'tag_name': tag, 'target_commitish': '953d62af289844e9a803cdc3f711320676475d11', 'name': 'Blocktower pretrained checkpoints', 'body': body, 'draft': False, 'prerelease': False}).encode())
           existing = [a for a in release['assets'] if a['name'] == name]
           if existing:
               assert existing[0].get('digest') == 'sha256:' + digest, 'Existing asset differs; do not overwrite.'
@@ -54,7 +54,7 @@ jobs:
           public_bytes = urllib.request.urlopen(asset['browser_download_url'], timeout=180).read()
           assert hashlib.sha256(public_bytes).hexdigest() == digest
           with zipfile.ZipFile(io.BytesIO(public_bytes)) as package:
-              for line in package.read('SHA256SUMS').decode().splitlines():
+              for line in package.read('BLOCKTOWER_SHA256SUMS').decode().splitlines():
                   expected, path = line.split('  ', 1)
                   assert hashlib.sha256(package.read(path)).hexdigest() == expected
               assert 'README.md' not in package.namelist()
