@@ -79,7 +79,7 @@ Dataset-specific training arguments are stored in `configs/`. The default seed i
 
 ## 🧪 Evaluation and checkpoints
 
-To evaluate a pretrained model, place its perception and dynamics checkpoints in the directories described in the [checkpoint guide](checkpoints/README.md). Download links will be added when the weights are uploaded to GitHub Releases.
+Pretrained **Balls perception and dynamics weights** are available in the [versioned release](https://github.com/return-sleep/object-centric-visual-dynamics/releases/tag/v1.0.0-balls). Download the ZIP, extract it into the repository root, and follow the [checkpoint guide](checkpoints/README.md) to verify and evaluate it. The complete 188-video test evaluation gives **34.12 dB L-PSNR** (rounded).
 
 For example, evaluate Balls with:
 

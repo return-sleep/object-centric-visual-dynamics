@@ -1,7 +1,27 @@
 # Model checkpoints
 
-Model weights are not stored in git. Place matching files at the exact paths
-below:
+## Download and evaluate Balls
+
+Download [ocvd-balls-checkpoints-v1.zip](https://github.com/return-sleep/object-centric-visual-dynamics/releases/download/v1.0.0-balls/ocvd-balls-checkpoints-v1.zip) (27.4 MB). It includes the matching perception and dynamics weights, file checksums, and reference metrics. Extract it at the repository root:
+
+```sh
+unzip ocvd-balls-checkpoints-v1.zip
+shasum -a 256 -c SHA256SUMS
+```
+
+Archive SHA-256: `7634999fb4804bf8d3f4e1e0c0deb11d627d09dd805ccce3cf8b205d88081b9e`.
+
+After [registering the dataset](../docs/DATASETS.md), run:
+
+```sh
+python tools/run.py --dataset ballsCF --mode eval
+```
+
+This evaluates all 188 supplied Balls test videos using 3 conditioning frames and 25 predicted frames. The reference L-PSNR is 34.115024 dB, rounding to 34.12. See [results and environment details](../docs/RESULTS.md).
+
+## File layout
+
+Weights are distributed as release assets rather than stored in Git. Balls weights are available above; the other datasets do not yet have public weight downloads. Expected paths:
 
 ```text
 checkpoints/
@@ -19,22 +39,4 @@ checkpoints/
     dynamics/best_val_psnr_model.pt
 ```
 
-Before publishing weights:
-
-1. upload only the selected files to a versioned release or model host;
-2. record the public URLs here;
-3. generate `MANIFEST.sha256`;
-4. run every public `--mode eval` command in a clean environment;
-5. archive the resulting metric files and exact evaluation command with the release.
-   The main.py path writes `metric_table.csv` and `log.json`.
-
-Example hash command:
-
-```bash
-python tools/checkpoint_manifest.py --root checkpoints > checkpoints/MANIFEST.sha256
-python tools/checkpoint_manifest.py --root checkpoints --verify checkpoints/MANIFEST.sha256
-```
-
-Until download URLs are populated, `tools/run.py --mode eval` exits with a
-clear missing-checkpoint message. Full training does not require public
-weights.
+The Balls archive has its own `SHA256SUMS`, covering only its two weights. The repository's `MANIFEST.sha256` also lists unreleased checkpoints and is not the verification manifest for this download.
