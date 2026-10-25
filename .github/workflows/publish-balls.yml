@@ -27,14 +27,18 @@ jobs:
           def api(url, data=None, content_type='application/json'):
               headers = {'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json', 'Content-Type': content_type, 'X-GitHub-Api-Version': '2022-11-28'}
               request = urllib.request.Request(url, data=data, headers=headers)
-              return json.load(urllib.request.urlopen(request, timeout=180))
+              try:
+                  return json.load(urllib.request.urlopen(request, timeout=180))
+              except urllib.error.HTTPError as error:
+                  print("HTTP", error.code, error.read().decode())
+                  raise
           try:
               release = api(base + '/releases/tags/' + tag)
           except urllib.error.HTTPError as error:
               if error.code != 404:
                   raise
               body = 'Matching perception and dynamics checkpoints for the short-horizon Balls experiment.\n\n- Complete test split: 188 videos, 3 conditioning frames and 25 predicted frames.\n- Public evaluation: L-PSNR 34.115024 dB, rounding to 34.12.\n- Extract the ZIP into the repository root, register the dataset following docs/DATASETS.md, then run `python tools/run.py --dataset ballsCF --mode eval`.\n- Includes file checksums, evaluation instructions, and reference metrics.\n\nArchive SHA-256: `' + digest + '`.\n\nSee docs/RESULTS.md and docs/validation.json for evaluation details.'
-              release = api(base + '/releases', json.dumps({'tag_name': tag, 'target_commitish': 'd98ce1d', 'name': 'Balls pretrained checkpoints - L-PSNR 34.12', 'body': body, 'draft': False, 'prerelease': False}).encode())
+              release = api(base + '/releases', json.dumps({'tag_name': tag, 'target_commitish': 'd98ce1df2abefb48887d4fc4db47d4835e275250', 'name': 'Balls pretrained checkpoints - L-PSNR 34.12', 'body': body, 'draft': False, 'prerelease': False}).encode())
           existing = [a for a in release['assets'] if a['name'] == name]
           if existing:
               assert existing[0].get('digest') == 'sha256:' + digest, 'Existing asset differs; do not overwrite.'
