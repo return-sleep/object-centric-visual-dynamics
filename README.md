@@ -79,7 +79,14 @@ Dataset-specific training arguments are stored in `configs/`. The default seed i
 
 ## 🧪 Evaluation and checkpoints
 
-Pretrained **Balls perception and dynamics weights** are available in the [versioned release](https://github.com/return-sleep/object-centric-visual-dynamics/releases/tag/v1.0.0-balls). Download the ZIP, extract it into the repository root, and follow the [checkpoint guide](checkpoints/README.md) to verify and evaluate it. The complete 188-video test evaluation gives **34.12 dB L-PSNR** (rounded).
+Pretrained perception and dynamics weights are available for **Balls** and **Blocktower**:
+
+| Dataset | Download |
+|---|---|
+| Balls | [Pretrained checkpoints](https://github.com/return-sleep/object-centric-visual-dynamics/releases/tag/v1.0.0-balls) |
+| Blocktower | [Pretrained checkpoints](https://github.com/return-sleep/object-centric-visual-dynamics/releases/tag/v1.0.0-blocktower) |
+
+Extract each ZIP into the repository root and follow the [checkpoint guide](checkpoints/README.md) to verify and evaluate the weights.
 
 For example, evaluate Balls with:
 
