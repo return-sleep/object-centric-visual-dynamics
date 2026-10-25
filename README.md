@@ -79,7 +79,7 @@ Dataset-specific training arguments are stored in `configs/`. The default seed i
 
 ## 🧪 Evaluation and checkpoints
 
-Pretrained perception and dynamics weights are available for **Balls** and **Blocktower**:
+Corresponding pretrained perception and dynamics weights are available below:
 
 | Dataset | Download |
 |---|---|
